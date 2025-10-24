@@ -1,0 +1,17 @@
+
+[
+  {
+    "id": 1,
+    "patient": "Jane Doe",
+    "doctor": "Dr. Santos",
+    "time": "2025-10-25T10:30:00",
+    "status": "Confirmed"
+  },
+  {
+    "id": 2,
+    "patient": "John Smith",
+    "doctor": "Dr. Reyes",
+    "time": "2025-10-25T11:00:00",
+    "status": "Pending"
+  }
+]
