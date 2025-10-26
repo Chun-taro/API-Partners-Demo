@@ -97,5 +97,77 @@ app.get("/api/v1/calendar", auth, (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /api/v1/appointments:
+ *   post:
+ *     summary: Create a new appointment (mock)
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               patient:
+ *                 type: string
+ *               doctor:
+ *                 type: string
+ *               time:
+ *                 type: string
+ *               status:
+ *                 type: string
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       201:
+ *         description: Appointment created (mock)
+ */
+app.use(express.json());
+
+app.post("/api/v1/appointments", auth, (req, res) => {
+  const { patient, doctor, time, status } = req.body;
+
+  // Simulate saving by logging
+  console.log("📥 New appointment received (mock):", req.body);
+
+  res.status(201).json({
+    message: "Appointment created (mock only)",
+    appointment: { patient, doctor, time, status },
+  });
+});
+
+/**
+ * @swagger
+ * /api/v1/appointments/{id}:
+ *   delete:
+ *     summary: Delete an appointment by ID (mock)
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Appointment ID
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Appointment deleted (mock)
+ *       404:
+ *         description: Appointment not found
+ */
+app.delete("/api/v1/appointments/:id", auth, (req, res) => {
+  const id = parseInt(req.params.id);
+  const exists = appointments.find(a => a.id === id);
+
+  if (exists) {
+    console.log(`🗑️ Mock delete: Appointment ID ${id}`);
+    res.json({ message: `Appointment ID ${id} deleted (mock only)` });
+  } else {
+    res.status(404).json({ error: "Appointment not found" });
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Partner API running on port ${PORT}`));
